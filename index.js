@@ -1,3 +1,4 @@
+// takes length of drums to start loop
 var totalDrumButtons = document.querySelectorAll(".drum").length;
 for(var i=0; i<totalDrumButtons; i++){
   document.querySelectorAll("button")[i].addEventListener("click", handleClick);
@@ -9,11 +10,13 @@ function handleClick() {
 
   var key = this.innerText;
   hitDrum(key);
+  buttonAnimation(key);
 }
 
 document.addEventListener("keypress", function(event) {
   //console.log(event.key);
   hitDrum(event.key);
+  buttonAnimation(event.key);
 });
 
 function hitDrum(key){
@@ -45,5 +48,20 @@ function hitDrum(key){
     case 'l' : var audio = new Audio('sounds/kick-bass.mp3');
     audio.play();
     break;
+    default: console.log(key);
   }
+
+
 }
+
+function buttonAnimation(currentkey) {
+
+  var activeButton = document.querySelector("." + currentkey);
+  activeButton.classList.add("pressed");
+
+  setTimeout(
+    function(){
+      activeButton.classList.remove("pressed");
+              } , 100);
+
+  }
